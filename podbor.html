@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#f8f4ed">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Limkorm подбор">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<title>Подбор корма Limkorm — демо</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0f2a3d;--ink:#132433;--muted:#6b7c8a;--line:#e3eaf0;--bg:#f4f7fa;
+  --blue:#2a95cf;--blue2:#67c2ee;--sun:#ffb547;--coral:#ff6f59;--mint:#2fc29b;--violet:#7c6cf0;
+  --om:#9b3a1f;--ajo:#14866d;--sir:#2f62c9;
+  --r:26px;--hf:"Unbounded","Manrope",system-ui,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Manrope",-apple-system,system-ui,sans-serif;background:#dfe7ee;color:var(--ink);font-size:16px;line-height:1.45}
+.app{max-width:440px;margin:0 auto;background:var(--bg);min-height:100vh;position:relative;overflow:hidden;box-shadow:0 0 60px rgba(15,42,61,.15)}
+button{font:inherit;border:0;cursor:pointer;color:inherit;background:none}
+/* top bar */
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:calc(10px + env(safe-area-inset-top)) 18px 10px;background:rgba(244,247,250,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:9px;font-family:var(--hf);font-weight:800;font-size:15px;letter-spacing:.5px;color:var(--navy)}
+.brand img{width:30px;height:30px}
+.brand small{display:block;font-family:"Manrope",-apple-system,system-ui,sans-serif;font-weight:700;font-size:9.5px;letter-spacing:2px;color:var(--blue);margin-top:-2px}
+.demo{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#fff;background:var(--navy);border-radius:99px;padding:6px 10px}
+/* hero */
+.hero{position:relative;margin:6px 14px 0;border-radius:34px;padding:30px 24px 26px;color:#fff;overflow:hidden;
+  background:radial-gradient(120% 80% at 100% 0%,#67c2ee 0%,transparent 55%),radial-gradient(90% 70% at 0% 100%,#2fc29b55 0%,transparent 60%),linear-gradient(160deg,#16486b,#0f2a3d 70%)}
+.hero h1{font-family:var(--hf);font-weight:800;font-size:33px;line-height:1.04;letter-spacing:-1px}
+.hero h1 em{font-style:normal;color:var(--sun)}
+.hero p{margin-top:12px;font-size:15.5px;opacity:.85;max-width:290px}
+.stripes{position:absolute;right:-30px;top:-10px;width:210px;opacity:.18}
+.pets{display:flex;align-items:flex-end;gap:6px;margin:22px 0 4px}
+.blob{width:118px;height:118px;border-radius:44% 56% 52% 48%/55% 45% 55% 45%;display:flex;align-items:center;justify-content:center;font-size:66px;box-shadow:inset 0 -8px 20px rgba(0,0,0,.12)}
+.blob.d{background:linear-gradient(145deg,#ffcf7a,#ff9f43);animation:float 4s ease-in-out infinite}
+.blob.c{width:96px;height:96px;font-size:54px;background:linear-gradient(145deg,#c9bbff,#8f7bff);animation:float 4s 1s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-8px) rotate(-3deg)}}
+.cta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin-top:18px;background:#fff;color:var(--navy);font-weight:800;font-size:17px;border-radius:20px;padding:17px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.cta .arr{width:30px;height:30px;border-radius:50%;background:var(--sun);display:flex;align-items:center;justify-content:center;animation:nudge 1.6s infinite}
+@keyframes nudge{50%{transform:translateY(3px)}}
+.stats{display:flex;gap:8px;margin-top:16px}
+.stats div{flex:1;background:rgba(255,255,255,.12);border-radius:16px;padding:10px 8px;text-align:center;font-size:11.5px;font-weight:600;line-height:1.25}
+.stats b{display:block;font-family:var(--hf);font-size:19px;color:#fff}
+/* sections */
+.sec{padding:34px 18px 6px;scroll-margin-top:60px}
+.sec.hidden{display:none}
+.step{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.step i{font-style:normal;width:26px;height:26px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;letter-spacing:0;font-size:12.5px}
+h2{font-family:var(--hf);font-weight:700;font-size:25px;line-height:1.1;letter-spacing:-.6px;color:var(--navy);margin-bottom:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{position:relative;border-radius:var(--r);padding:16px 14px 14px;text-align:left;background:#fff;box-shadow:0 4px 18px rgba(15,42,61,.07);transition:transform .15s,box-shadow .2s;overflow:hidden;min-height:96px;border:2.5px solid transparent}
+.tile:active{transform:scale(.97)}
+.tile.on{border-color:var(--navy);box-shadow:0 10px 26px rgba(15,42,61,.18)}
+.tile.on::after{content:"✓";position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.tile .em{font-size:40px;line-height:1;display:block;margin-bottom:8px}
+.tile b{display:block;font-weight:800;font-size:16px}
+.tile span{font-size:12.5px;color:var(--muted);font-weight:600}
+.big{min-height:190px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end}
+.big .em{font-size:84px;position:absolute;top:14px;left:50%;transform:translateX(-50%);filter:drop-shadow(0 8px 12px rgba(0,0,0,.18))}
+.big b{font-family:var(--hf);font-size:20px}.big span{color:rgba(255,255,255,.85)}
+.big.dog{background:linear-gradient(160deg,#ffc35c,#ff8a3d)}.big.cat{background:linear-gradient(160deg,#a99bff,#6f5cf0)}
+.big.on{border-color:#fff;box-shadow:0 0 0 3px var(--navy),0 12px 30px rgba(15,42,61,.25)}
+.sizes .em{display:flex;align-items:flex-end;height:44px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:#fff;border:2px solid var(--line);border-radius:99px;padding:11px 15px;font-weight:700;font-size:14.5px;transition:.15s}
+.chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.dateline{margin-top:12px;display:flex;align-items:center;gap:10px;background:#fff;border-radius:18px;padding:12px 14px;box-shadow:0 4px 18px rgba(15,42,61,.06)}
+.dateline label{flex:1;font-size:13.5px;font-weight:700;color:var(--muted)}
+.dateline input{font:inherit;font-weight:800;font-size:15px;border:2px solid var(--line);border-radius:12px;padding:8px 10px;color:var(--navy);background:var(--bg);min-width:150px;-webkit-appearance:none;appearance:none;min-height:42px}
+.next{display:block;width:100%;margin-top:18px;background:var(--navy);color:#fff;font-weight:800;font-size:16.5px;border-radius:20px;padding:16px}
+/* results */
+.res-head{background:linear-gradient(135deg,#0f2a3d,#16486b);color:#fff;border-radius:30px;padding:22px 20px;margin-bottom:14px;position:relative;overflow:hidden}
+.res-head h2{color:#fff;margin:6px 0 8px;font-size:24px}
+.res-head .tags{display:flex;flex-wrap:wrap;gap:6px}
+.res-head .tags span{background:rgba(255,255,255,.14);border-radius:99px;padding:5px 11px;font-size:12.5px;font-weight:700}
+.filters{display:flex;gap:8px;overflow-x:auto;padding:2px 0 12px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filters button{flex:none;border-radius:99px;padding:9px 14px;font-weight:800;font-size:13.5px;background:#fff;border:2px solid var(--line)}
+.filters button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.card{background:#fff;border-radius:30px;overflow:hidden;margin-bottom:16px;box-shadow:0 8px 28px rgba(15,42,61,.09);animation:rise .45s both}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}}
+.visual{position:relative;height:230px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.visual .halo{position:absolute;width:260px;height:260px;border-radius:50%;background:rgba(255,255,255,.18);top:-40px;right:-60px}
+.visual .tagc{z-index:3;position:absolute;top:14px;left:14px;background:rgba(255,255,255,.92);color:var(--ink);font-size:11.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;border-radius:99px;padding:6px 11px}
+.visual .best{z-index:3;position:absolute;top:14px;right:14px;background:var(--sun);color:#3d2400;font-size:11.5px;font-weight:800;border-radius:99px;padding:6px 11px}
+.pack{position:relative;width:132px;height:178px;border-radius:16px 16px 22px 22px;padding:16px 12px 12px;color:#fff;display:flex;flex-direction:column;box-shadow:0 18px 30px rgba(0,0,0,.28),inset 0 2px 0 rgba(255,255,255,.25);transform:rotate(-4deg)}
+.pack::before{content:"";position:absolute;left:0;right:0;top:0;height:12px;border-radius:16px 16px 0 0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.35) 0 4px,transparent 4px 8px)}
+.pack .pb{font-family:var(--hf);font-weight:800;font-size:15px;line-height:1.05;margin-top:6px}
+.pack .pl{font-size:10.5px;font-weight:700;opacity:.9;margin-top:6px;line-height:1.2}
+.pack .pp{margin-top:auto;font-size:38px;line-height:1;text-align:center;filter:drop-shadow(0 4px 6px rgba(0,0,0,.25))}
+.pack.wet{width:150px;height:118px;border-radius:22px;transform:rotate(-3deg)}
+.pack.wet .pp{font-size:30px}
+.petside{position:absolute;bottom:10px;right:18px;font-size:58px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.2))}
+.body{padding:18px 18px 18px}
+.body .cls{font-size:12px;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.body h3{font-family:var(--hf);font-weight:700;font-size:19px;line-height:1.15;letter-spacing:-.3px;margin:4px 0 6px;color:var(--navy)}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px}
+.meta span{background:var(--bg);border-radius:10px;padding:5px 9px;font-size:12.5px;font-weight:700;color:#3d5060}
+.why{background:#f0f9f5;border-radius:16px;padding:11px 13px;font-size:13.5px;color:#1f5e4b;font-weight:600}
+.why b{color:#0f4a39}
+.acts{display:flex;gap:8px;margin-top:14px}
+.acts a,.acts button{flex:1;text-align:center;text-decoration:none;border-radius:16px;padding:13px 10px;font-weight:800;font-size:14.5px}
+.buy{background:var(--navy);color:#fff}
+.save{background:var(--bg);color:var(--navy)}
+.save.on{background:#e3f6ee;color:#14866d}
+.empty{background:#fff;border-radius:24px;padding:26px;text-align:center;color:var(--muted);font-weight:600}
+.who{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 14px;scrollbar-width:none}
+.who::-webkit-scrollbar{display:none}
+.who button{flex:none;display:flex;flex-direction:column;align-items:center;gap:6px;width:84px;font-weight:800;font-size:13px}
+.who .av{width:68px;height:68px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:34px;background:#fff;border:3px solid #fff;box-shadow:0 4px 14px rgba(15,42,61,.12)}
+.who .av img{width:100%;height:100%;object-fit:cover}
+.who .on .av{border-color:var(--navy);box-shadow:0 0 0 2px var(--sun),0 6px 18px rgba(15,42,61,.2)}
+.who .add .av{background:var(--bg);border:2px dashed #b9c7d3;color:var(--muted);font-size:26px;box-shadow:none}
+.whohint{font-size:13px;color:var(--muted);font-weight:600;margin:-6px 0 14px}
+.petside.ph{width:84px;height:84px;border-radius:50%;overflow:hidden;border:4px solid #fff;box-shadow:0 8px 18px rgba(0,0,0,.25);font-size:0;bottom:16px}
+.petside.ph img{width:100%;height:100%;object-fit:cover}
+.res-av{width:54px;height:54px;border-radius:50%;overflow:hidden;border:3px solid #fff;float:right;margin-left:10px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:30px}
+.res-av img{width:100%;height:100%;object-fit:cover}
+.heroimg{display:block;width:100%;height:150px;object-fit:cover;border-radius:22px;margin:20px 0 6px;box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.big.photo{background-size:cover;background-position:center}
+.big.photo .em{display:none}
+.big.photo::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(15,42,61,.85));border-radius:inherit}
+.big.photo b,.big.photo span{position:relative}
+.visual.light .halo{background:rgba(255,255,255,.5)}
+.real{position:relative;z-index:1;max-height:200px;max-width:70%;object-fit:contain;filter:drop-shadow(0 14px 18px rgba(0,0,0,.22));transform:rotate(-3deg)}
+.real.mul{mix-blend-mode:multiply;filter:none}
+.blogo{height:26px;width:auto;display:block;margin-bottom:6px}
+/* moon teaser */
+.moon{margin:22px 0 10px;border-radius:32px;padding:24px 20px;color:#fff;position:relative;overflow:hidden;background:radial-gradient(80% 60% at 80% 10%,#4b3fa8,transparent 60%),linear-gradient(170deg,#1b1640,#0b0a1f)}
+.moon .orb{position:absolute;right:22px;top:22px;width:78px;height:78px;border-radius:50%;background:#f4efd6;box-shadow:0 0 40px #f4efd688;overflow:hidden}
+.moon .orb::after{content:"";position:absolute;inset:0;border-radius:50%;background:#1b1640;animation:phase 6s ease-in-out infinite}
+@keyframes phase{0%{transform:translateX(-100%)}50%{transform:translateX(0)}100%{transform:translateX(100%)}}
+.moon .soon{display:inline-block;background:var(--sun);color:#3d2400;font-weight:800;font-size:11.5px;letter-spacing:1px;text-transform:uppercase;border-radius:99px;padding:5px 10px}
+.moon h3{font-family:var(--hf);font-size:22px;line-height:1.1;margin:12px 0 8px;max-width:230px}
+.moon p{font-size:14px;opacity:.82;max-width:300px}
+.moon .stars{position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 20% 30%,#fff9,transparent),radial-gradient(1px 1px at 60% 70%,#fff8,transparent),radial-gradient(1.2px 1.2px at 85% 55%,#fffa,transparent),radial-gradient(1px 1px at 35% 85%,#fff7,transparent),radial-gradient(1.4px 1.4px at 10% 65%,#fff8,transparent);pointer-events:none}
+.moon button{margin-top:14px;background:rgba(255,255,255,.14);color:#fff;border-radius:14px;padding:11px 14px;font-weight:800;font-size:13.5px}
+/* diary link + footer */
+.diary{display:flex;align-items:center;gap:14px;background:#fff;border-radius:26px;padding:16px;margin:8px 0 14px;text-decoration:none;color:inherit;box-shadow:0 4px 18px rgba(15,42,61,.07)}
+.diary .di{width:56px;height:56px;border-radius:18px;background:linear-gradient(145deg,#d98a5a,#a8481f);display:flex;align-items:center;justify-content:center;font-size:28px;flex:none}
+.diary b{display:block;font-weight:800}.diary span{font-size:13px;color:var(--muted);font-weight:600}
+.foot{padding:6px 22px calc(110px + env(safe-area-inset-bottom));text-align:center;font-size:12px;color:var(--muted);line-height:1.5}
+/* bottom bar */
+.dock{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));width:min(410px,calc(100% - 24px));z-index:30;display:flex;gap:6px;background:rgba(15,42,61,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:24px;padding:7px;box-shadow:0 12px 30px rgba(15,42,61,.35)}
+.dock button,.dock a{flex:1;color:rgba(255,255,255,.65);font-weight:800;font-size:11px;border-radius:18px;padding:8px 4px;text-align:center;text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:2px}
+.dock .ic{font-size:20px;line-height:1}
+.dock .on{background:rgba(255,255,255,.14);color:#fff}
+.dock .plus{flex:none;width:46px;height:46px;margin:0 2px;border-radius:16px;background:var(--sun);color:#3d2400;font-size:26px;justify-content:center;padding:0}
+.dock button,.dock a{font-size:10.5px;padding:7px 2px}
+.dock img{width:22px;height:22px;filter:brightness(0) invert(1)}
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(20px);background:var(--navy);color:#fff;padding:11px 16px;border-radius:14px;font-weight:700;font-size:14px;opacity:0;transition:.3s;z-index:40;white-space:nowrap;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%)}
+.sheet{position:fixed;inset:0;background:rgba(10,20,30,.5);z-index:50;display:none;align-items:flex-end;justify-content:center}
+.sheet.open{display:flex}
+.sheet .in{background:#fff;width:100%;max-width:440px;border-radius:28px 28px 0 0;padding:22px 20px calc(24px + env(safe-area-inset-bottom));animation:up .25s}
+@keyframes up{from{transform:translateY(40px);opacity:.4}}
+.sheet h3{font-family:var(--hf);font-size:20px;margin-bottom:8px}
+.sheet p{color:var(--muted);font-size:14.5px;margin-bottom:14px}
+
+
+/* ===== ЛАПКИ · SAGE ===== */
+:root{--navy:#2f4d34;--ink:#1f3022;--muted:#717a6c;--line:#e6e2d6;--bg:#f8f4ed;--card:#fffdf8;--sage:#e1e4d4;--sage2:#ebece1;--sage3:#cfd5c0;--green:#2f4d34;--heart:#d98a6c;--blue:#2f4d34;--sun:#e9d9a8;--r:24px;--hf:"Manrope",-apple-system,BlinkMacSystemFont,"SF Pro Text",system-ui,sans-serif}
+body{font-family:var(--hf);background:#ebe6dc;-webkit-font-smoothing:antialiased}
+.app{background:var(--bg);box-shadow:0 0 70px rgba(47,77,52,.12)}
+.top{background:rgba(248,244,237,.88);backdrop-filter:blur(16px);padding:calc(12px + env(safe-area-inset-top)) 20px 8px}
+.top .brand{display:flex;align-items:center;gap:9px;font-family:var(--hf);font-weight:800;font-size:21px;letter-spacing:.5px;color:var(--green)}
+.top .brand svg{width:30px;height:30px}
+.top .brand small{display:inline;font-family:var(--hf);font-size:11px;font-weight:700;letter-spacing:1px;color:var(--muted);margin:0 0 0 2px}
+.top .me{width:46px;height:46px;border-radius:50%;background:var(--sage2);display:flex;align-items:center;justify-content:center;color:var(--green)}
+.top .me svg{width:24px;height:24px}
+.hero{margin:0;border-radius:0;height:auto;min-height:340px;padding:18px 20px 22px;color:var(--ink);background:transparent;overflow:hidden}
+.hero h1{position:relative;z-index:3;font-family:var(--hf);font-weight:800;font-size:34px;line-height:1.08;letter-spacing:-1.1px;color:var(--green);max-width:56%}
+.hero .hs{position:relative;z-index:3;margin-top:16px;font-size:15.5px;line-height:1.45;color:var(--muted);max-width:52%;font-weight:500;opacity:1}
+.hero .hb{position:absolute;right:-50px;top:-30px;width:240px;height:330px;background:var(--sage);border-radius:58% 42% 0 60%/40% 40% 0 60%;z-index:0}
+.hero .hi{position:absolute;right:-8px;top:56px;width:178px;height:246px;border-radius:52% 48% 0 0/42% 42% 0 0;object-fit:cover;object-position:30% 50%;z-index:2}
+.hero .hh{position:absolute;right:130px;top:22px;width:58px;height:58px;color:var(--heart);z-index:3}
+.hero .hm{position:relative;z-index:3;display:flex;gap:8px;margin-top:22px;flex-wrap:wrap;max-width:56%}
+.hero .hm span{background:var(--sage2);border-radius:99px;padding:6px 11px;font-size:12.5px;font-weight:700;color:var(--green)}
+.hero .cta{position:relative;z-index:3;margin-top:40px;width:100%;background:var(--green);color:#fff;font-weight:700;font-size:19px;border-radius:99px;padding:19px;box-shadow:0 12px 26px -12px rgba(47,77,52,.6);display:flex;gap:12px;align-items:center;justify-content:center}
+.hero .cta svg{width:22px;height:22px}
+.sec{padding:26px 16px 6px}
+.stp{display:flex;align-items:center;gap:14px;font-size:15px;font-weight:600;color:var(--muted);margin-bottom:10px}
+.track{flex:1;height:8px;border-radius:9px;background:var(--sage2);overflow:hidden}.track i{display:block;height:100%;border-radius:9px;background:var(--green)}
+.step{font-size:12px;font-weight:700;letter-spacing:.4px;text-transform:none;color:var(--muted);gap:8px}
+.step i{display:none}
+h2{font-family:var(--hf);font-weight:800;font-size:30px;letter-spacing:-.8px;line-height:1.08;color:var(--green)}
+.tile{background:var(--sage2);border:2px solid transparent;border-radius:var(--r);box-shadow:none}
+.tile.on{background:var(--card);border-color:var(--green);box-shadow:none}
+.tile.on::after{background:var(--green);color:#fff;content:"✓";width:28px;height:28px}
+.tile b{font-weight:800;font-size:17px;color:var(--ink)}.tile span{font-weight:600;font-size:12.5px;color:var(--muted)}
+.tile .num{display:block;font-size:12px;font-weight:800;color:var(--green);margin-bottom:20px;opacity:.6}
+.sp{text-align:center;padding:16px 10px 14px;min-height:0}
+.sp .fa{position:relative;height:124px;display:flex;align-items:flex-end;justify-content:center}
+.sp .fa::before{content:"";position:absolute;left:14%;right:14%;bottom:0;height:74%;background:var(--sage3);border-radius:50% 50% 0 0/60% 60% 0 0;opacity:.75}
+.sp .fa img{position:relative;width:116px;height:116px;object-fit:cover;object-position:50% 35%;border-radius:50% 50% 0 0/55% 55% 0 0}
+.sp b{margin-top:10px;font-size:20px}
+.sizes .em{height:52px;align-items:flex-end}.sizes .em i{display:block;border-radius:50%;background:var(--sage3)}
+.tile.on .em i{background:var(--green)}
+.chip{background:var(--sage2);border:2px solid transparent;font-weight:700;font-size:14.5px;padding:11px 16px;color:var(--ink)}
+.chip.on{background:var(--green);border-color:var(--green);color:#fff}
+.dateline{background:var(--card);border:0;box-shadow:0 2px 14px rgba(47,77,52,.07);border-radius:20px}
+.dateline label{font-weight:700;font-size:13px}
+.dateline input{border:1.5px solid var(--line);background:#fff;color:var(--ink);font-weight:700;border-radius:14px}
+.next{background:var(--green);font-weight:700;font-size:18px;border-radius:99px;padding:18px}
+.res-head{background:var(--sage);color:var(--ink);border-radius:26px}
+.res-head h2{color:var(--green);font-size:24px}
+.res-head .step{color:var(--muted)}
+.res-head .tags span{background:var(--card);border:0;color:var(--green);font-weight:700}
+.res-av{border:3px solid var(--card);box-shadow:none}
+.filters button{background:var(--sage2);border:2px solid transparent;font-weight:700;color:var(--ink)}
+.filters button.on{background:var(--green);border-color:var(--green);color:#fff}
+.card{background:var(--card);border:0;border-radius:26px;box-shadow:0 4px 20px rgba(47,77,52,.09)}
+.visual .tagc{background:rgba(255,253,248,.92);font-weight:800;letter-spacing:.8px;font-size:11px;color:var(--green)}
+.visual .best{background:var(--green);color:#fff;font-weight:800;font-size:11px;letter-spacing:.3px;text-transform:none}
+.body h3{font-family:var(--hf);font-weight:800;font-size:19px;letter-spacing:-.3px;color:var(--ink)}
+.body .cls{font-size:11px;letter-spacing:1px;font-weight:800}
+.meta span{background:var(--sage2);color:#3d4a3e;font-weight:700}
+.why{background:var(--sage2);border-left:0;border-radius:16px;color:#34463a;font-weight:600}
+.why b{color:var(--green)}
+.buy{background:var(--green)}.save{background:var(--sage2);color:var(--green)}.save.on{background:#dfe8d9;color:#2f4d34}
+.acts a,.acts button{font-weight:700;border-radius:99px}
+.who .av{border:3px solid var(--card);box-shadow:0 0 0 1px var(--line)}
+.who .on .av{box-shadow:0 0 0 2.5px var(--green)}
+.who .add .av{background:var(--sage2);border:2px dashed var(--sage3);color:var(--green)}
+.who button{font-weight:700}
+.moon{border-radius:26px;background:radial-gradient(90% 70% at 85% 0%,#4b6a50,transparent 60%),linear-gradient(170deg,#2f4d34,#1d3221)}
+.moon .orb{width:64px;height:64px;background:radial-gradient(circle at 35% 35%,#fbf3dc,#e9d9a8);box-shadow:0 0 44px rgba(233,217,168,.5)}
+.moon .orb::after{background:#24392a;animation-duration:8s}
+.moon .soon{background:#e9d9a8;color:#2f4d34;border:0;font-size:11px;letter-spacing:1px}
+.moon h3{font-family:var(--hf);font-weight:800}
+.moon p{color:rgba(255,255,255,.75);opacity:1}
+.moon button{background:rgba(255,255,255,.14);border:0;font-weight:700;border-radius:99px}
+.diary{background:var(--card);border:0;box-shadow:0 2px 14px rgba(47,77,52,.07);border-radius:24px}
+.diary .di{background:var(--sage2);color:var(--green);border-radius:16px;font-size:0}
+.diary .di svg{width:26px;height:26px}
+.toast{background:var(--green);border-radius:99px}
+.sheet .in{background:var(--bg)}.sheet h3{font-family:var(--hf);font-weight:800;color:var(--green)}
+.dock{background:rgba(255,253,248,.95);border-radius:30px;padding:8px;backdrop-filter:blur(18px);box-shadow:0 14px 34px -10px rgba(47,77,52,.3);align-items:center}
+.dock button,.dock a{color:var(--muted);font-weight:700;font-size:10.5px;gap:3px;border-radius:20px}
+.dock svg{width:23px;height:23px}
+.dock .on{background:var(--sage2);color:var(--green)}
+.dock .plus{width:52px;height:52px;border-radius:50%;background:var(--green);color:#fff;margin:0 4px;box-shadow:0 8px 18px -6px rgba(47,77,52,.6)}
+.dock .plus svg{width:24px;height:24px}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <div class="top"><div class="brand"><svg viewBox="0 0 32 32" fill="currentColor"><ellipse cx="7" cy="13.5" rx="3.2" ry="4"/><ellipse cx="12.5" cy="7.5" rx="3.3" ry="4.3"/><ellipse cx="19.5" cy="7.5" rx="3.3" ry="4.3"/><ellipse cx="25" cy="13.5" rx="3.2" ry="4"/><path d="M16 14c-4 0-8.5 5.6-8.5 9.2 0 2.6 2 3.8 4.3 3.8 1.8 0 2.6-.9 4.2-.9s2.4.9 4.2.9c2.3 0 4.3-1.2 4.3-3.8C24.5 19.6 20 14 16 14z"/></svg>ЛАПКИ<small>× LIMKORM</small></div><a class="me" href="./#pet" aria-label="Питомец"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg></a></div>
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hb"></div><img class="hi" src="img/hero-sofa.webp" alt=""><svg class="hh" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M30 46C18 37 10 30 10 21c0-6 4.5-10 9.5-10 4.6 0 8 3 10.5 7.5C32.5 14 36 11 40.5 11 45.5 11 50 15 50 21c0 9-8 16-20 25zM30 46c-2 4-6 7-11 8"/></svg>
+    <h1>Подбор питания</h1>
+    <p class="hs">Корм под возраст, размер и&nbsp;особенности вашего питомца</p>
+    <div class="hm"><span>51 корм</span><span>3 бренда</span><span>4 вопроса</span></div>
+    <button class="cta" onclick="go('s-species')">Начать подбор <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </section>
+
+  <!-- 1 SPECIES -->
+  <section class="sec" id="s-species">
+    <div id="whoBox"></div>
+    <div class="stp"><span>Шаг 1 из <span class="tot">4</span></span><div class="track"><i style="width:25%"></i></div></div>
+    <h2 id="spTitle">Кто живёт у вас дома?</h2>
+    <div class="grid2" id="species"></div>
+  </section>
+
+  <!-- 2 AGE -->
+  <section class="sec hidden" id="s-age">
+    <div class="stp"><span>Шаг 2 из <span class="tot">4</span></span><div class="track"><i style="width:50%"></i></div></div>
+    <h2 id="ageTitle">Сколько лет питомцу?</h2>
+    <div class="grid2" id="ages"></div>
+    <div class="dateline"><label for="birth">Или укажите дату рождения</label><input type="date" id="birth" onchange="setBirth(this.value)"></div>
+  </section>
+
+  <!-- 3 SIZE (dogs) -->
+  <section class="sec hidden" id="s-size">
+    <div class="stp"><span>Шаг 3 из <span class="tot">4</span></span><div class="track"><i style="width:75%"></i></div></div>
+    <h2>Какой размер у взрослой собаки?</h2>
+    <div class="grid2 sizes" id="sizes"></div>
+  </section>
+
+  <!-- 4 NEEDS -->
+  <section class="sec hidden" id="s-needs">
+    <div class="stp"><span>Шаг <span id="needsN">4</span> из <span class="tot">4</span></span><div class="track"><i style="width:100%"></i></div></div>
+    <h2>Есть ли особенности?</h2>
+    <div class="chips" id="needs"></div>
+    <button class="next" onclick="showResults()">Показать корма →</button>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="sec hidden" id="s-res">
+    <div class="res-head" id="resHead"></div>
+    <div class="filters" id="filters"></div>
+    <div id="feed"></div>
+
+    <div class="moon">
+      <div class="stars"></div><div class="orb"></div>
+      <span class="soon">Скоро</span>
+      <h3>Лунный календарь питомца</h3>
+      <p>Персональный развлекательный гороскоп по возрасту, полу и породе, фазы Луны и совет на каждый день.</p>
+      <button onclick="openSheet()">Хочу узнать первым</button>
+    </div>
+
+    <a class="diary" href="./"><div class="di"><svg viewBox="0 0 32 32" fill="currentColor"><ellipse cx="7" cy="13.5" rx="3.2" ry="4"/><ellipse cx="12.5" cy="7.5" rx="3.3" ry="4.3"/><ellipse cx="19.5" cy="7.5" rx="3.3" ry="4.3"/><ellipse cx="25" cy="13.5" rx="3.2" ry="4"/><path d="M16 14c-4 0-8.5 5.6-8.5 9.2 0 2.6 2 3.8 4.3 3.8 1.8 0 2.6-.9 4.2-.9s2.4.9 4.2.9c2.3 0 4.3-1.2 4.3-3.8C24.5 19.6 20 14 16 14z"/></svg></div><div><b>Дневник здоровья</b><span>Прививки, обработки, напоминания и выбранный корм в одном месте</span></div></a>
+  </section>
+
+  <div class="foot">Подбор ориентировочный, по данным сайтов производителя (ноябрь 2026). Часть изображений упаковок условная. При заболеваниях рацион назначает ветеринар. Переводите на новый корм постепенно, за 5–10 дней.</div>
+</div>
+
+<nav class="dock">
+  <a href="./#home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.2 12 3.5l8.5 6.7V20a.5.5 0 0 1-.5.5h-5.2v-6.2H9.2v6.2H4a.5.5 0 0 1-.5-.5z"/></svg>Главная</a>
+  <a href="./#cal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Календарь</a>
+  <a class="plus" href="./#add" aria-label="Добавить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></a>
+  <button class="on" id="d-pick" onclick="go('top')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12.5h18a9 7.5 0 0 1-18 0zM9 9c0-1.6 1.6-1.9 1.6-3.6M13.4 9c0-1.6 1.6-1.9 1.6-3.6"/></svg>Корм</button>
+  <a href="./#log"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5zM5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3M9 7.5h6"/></svg>Журнал</a>
+  <a href="./#pet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg>Питомец</a>
+</nav>
+<div class="toast" id="toast"></div>
+<div class="sheet" id="sheet" onclick="if(event.target===this)this.classList.remove('open')"><div class="in">
+  <h3>Лунный календарь — скоро</h3>
+  <p>Готовим развлекательный лунный гороскоп для кошек и собак: фазы Луны с ползунком на 29 дней, персональный рассказ о питомце и совет на каждый день.</p>
+  <button class="next" style="margin-top:0" onclick="document.getElementById('sheet').classList.remove('open');toast('Сообщим, когда запустим')">Понятно</button>
+</div></div>
+
+<script>
+const BRANDS={
+  om:{n:'Одно Мясо',cls:'Холистик',d:'Беззерновой, один источник белка, мясо — первый ингредиент',c:'#6b3e26',url:'https://onemeat-pet.ru/'},
+  ajo:{n:'AJO',cls:'Супер-премиум',d:'С гречкой, линейки по размеру и особым потребностям',c:'#2f7d6d',url:'https://ajo-pet.ru/'},
+  sir:{n:'SIRIUS',cls:'Премиум',d:'Доступный базовый рацион на каждый день',c:'#3a6fb0',url:'https://pet.limkorm.ru/gde-kupit/gde-kupit-korma-sirius'}
+};
+const FEEDS=[
+ // ---- СОБАКИ ----
+ ['om','dog','young',['all'],[],'Для щенков','индейка'],
+ ['om','dog','young',['xs','s'],[],'Для щенков малых пород','ягнёнок'],
+ ['om','dog','adult',['xs','s'],['allergy'],'Для взрослых малых пород','белая рыба'],
+ ['om','dog','adult',['xs','s'],['sensitive'],'Для взрослых малых пород','индейка'],
+ ['om','dog','adult',['all'],[],'Для взрослых всех пород','говядина'],
+ ['om','dog','adult',['all'],['sensitive'],'Для взрослых всех пород','индейка'],
+ ['om','dog','adult',['all'],[],'Для взрослых всех пород','свинина'],
+ ['ajo','dog','young',['xs'],[],'Very Small Puppy & Junior','индейка'],
+ ['ajo','dog','adult',['xs'],[],'Very Small Adult','индейка, ягнёнок'],
+ ['ajo','dog','young',['s'],[],'Mini Puppy & Junior','курица'],
+ ['ajo','dog','adult',['s'],[],'Mini Adult','курица'],
+ ['ajo','dog','young',['m','l'],[],'Puppy & Junior','индейка'],
+ ['ajo','dog','adult',['m'],[],'Medium Adult','говядина'],
+ ['ajo','dog','adult',['l'],[],'Maxi Adult','индейка, оленина'],
+ ['ajo','dog','adult',['all'],['sensitive'],'Sense — чувствительное пищеварение','индейка, ягнёнок'],
+ ['ajo','dog','adult',['xs','s'],['allergy'],'Mini Hypoallergenic','индейка'],
+ ['ajo','dog','adult',['m','l'],['allergy'],'Hypoallergenic','оленина'],
+ ['ajo','dog','young',['all'],[],'Puppy & Mom — паштет','',1],
+ ['ajo','dog','adult',['all'],['sensitive'],'Sense — паштет','',1],
+ ['sir','dog','young',['all'],[],'Для щенков и молодых собак','ягнёнок и рис'],
+ ['sir','dog','adult',['xs','s'],[],'Для малых пород','индейка и рис'],
+ ['sir','dog','adult',['m'],[],'Для средних пород','индейка и утка'],
+ ['sir','dog','adult',['l'],[],'Для крупных пород','индейка с овощами'],
+ ['sir','dog','adult',['all'],[],'Для взрослых собак','ягнёнок и рис'],
+ ['sir','dog','adult',['all'],[],'Для взрослых собак','говядина с овощами'],
+ ['sir','dog','adult',['all'],[],'Для взрослых собак','мясной рацион'],
+ ['sir','dog','adult',['all'],['active'],'Для активных собак','3 мяса с овощами'],
+ // ---- КОШКИ ----
+ ['om','cat','young',['all'],[],'Для котят, беременных и кормящих','индейка'],
+ ['om','cat','adult',['all'],['sterile'],'Для стерилизованных','говядина'],
+ ['om','cat','adult',['all'],['sterile'],'Для стерилизованных','курица'],
+ ['om','cat','adult',['all'],['sterile'],'Для стерилизованных','утка'],
+ ['om','cat','adult',['all'],[],'Для взрослых кошек','индейка'],
+ ['om','cat','adult',['all'],[],'Для взрослых кошек','рыба'],
+ ['ajo','cat','young',['all'],[],'Kitten & Mom','индейка'],
+ ['ajo','cat','adult',['all'],['active'],'Active','индейка'],
+ ['ajo','cat','senior',['all'],[],'Grand Master 7+','курица'],
+ ['ajo','cat','adult',['all'],['sterile','active'],'Sterile — для активных стерилизованных','индейка, утка'],
+ ['ajo','cat','adult',['all'],['sterile','weight'],'Sterile Weight Control','курица'],
+ ['ajo','cat','adult',['all'],['sensitive'],'Sense — чувствительное пищеварение','оленина'],
+ ['ajo','cat','adult',['all'],['picky'],'Delicate Taste — для привередливых','индейка'],
+ ['ajo','cat','adult',['all'],['coat'],'Skin & Hair — кожа и шерсть','лосось, индейка'],
+ ['ajo','cat','young',['all'],[],'Kitten & Mom — паучи','',1],
+ ['ajo','cat','adult',['all'],['picky'],'Delicate Taste — паучи','',1],
+ ['ajo','cat','adult',['all'],['sensitive'],'Sense — паучи','',1],
+ ['ajo','cat','adult',['all'],['coat'],'Skin & Hair — паучи','',1],
+ ['sir','cat','young',['all'],[],'Для котят','курица и индейка'],
+ ['sir','cat','adult',['all'],[],'Для взрослых кошек','лосось и рис'],
+ ['sir','cat','adult',['all'],[],'Для взрослых кошек','мясной рацион'],
+ ['sir','cat','adult',['all'],['sensitive'],'Чувствительное пищеварение','индейка с черникой'],
+ ['sir','cat','adult',['all'],['sterile'],'Для стерилизованных','индейка и курица'],
+ ['sir','cat','adult',['all'],['sterile'],'Для стерилизованных','утка и клюква']
+].map(([b,sp,age,size,needs,name,protein,wet],i)=>({id:'f'+i,b,sp,age,size,needs,name,protein,wet:!!wet}));
+
+const PROT={'индейк':'🦃','куриц':'🐔','ягн':'🐑','говяд':'🐄','свин':'🐖','рыб':'🐟','лосос':'🐟','утк':'🦆','олен':'🦌','мясн':'🥩','3 мяса':'🥩'};
+const protEmoji=p=>{p=(p||'').toLowerCase();for(const k in PROT)if(p.includes(k))return PROT[k];return '🥩'};
+const GRAD={om:'linear-gradient(160deg,#cf8e70,#9f553a)',ajo:'linear-gradient(160deg,#748f80,#3d5a4c)',sir:'linear-gradient(160deg,#5d6f9f,#2a3860)'};
+const PACK={om:'linear-gradient(170deg,#b8472a,#7a2a14)',ajo:'linear-gradient(170deg,#1aa383,#0d6b56)',sir:'linear-gradient(170deg,#3f78e6,#1f4aa8)'};
+const LOGO={om:'img/logo-om.webp',ajo:'img/logo-ajo.webp',sir:'img/logo-sirius.webp'};
+// настоящие фото упаковок: [бренд, вид, часть названия, часть белка, файл, multiply(белый фон)]
+const IMGS=[['sir','dog','Для взрослых собак','говядина','sir-dog-beef.webp',0],
+ ['ajo','dog','Very Small Adult','','ajo-dog-vs-adult.webp',1],
+ ['om','cat','стерилизованных','говядина','om-cat-sterile-beef.webp',0],
+ ['ajo','dog','Mini Hypoallergenic','','ajo-dog-mini-hypo.webp',1],
+ ['ajo','cat','Skin & Hair — кожа','','ajo-cat-skin-hair.webp',1],
+ ['om','dog','всех пород','свинина','om-dog-pork.webp',0],
+ ['sir','cat','Для взрослых кошек','лосось','sir-cat-salmon.webp',1]];
+function realImg(f){const m=IMGS.find(([b,sp,n,pr])=>b===f.b&&sp===f.sp&&!f.wet&&f.name.includes(n)&&(f.protein||'').includes(pr));return m?{src:'img/'+m[4],mul:m[5]}:null}
+const GRADL={om:'linear-gradient(160deg,#f6ece4,#e9d6c8)',ajo:'linear-gradient(160deg,#eef1ec,#d7e0d8)',sir:'linear-gradient(160deg,#eef0f5,#d7dceb)'};
+const NEEDS={dog:[['sensitive','Чувствительное пищеварение'],['allergy','Склонность к аллергии'],['active','Очень активная']],
+  cat:[['sterile','Стерилизована'],['sensitive','Чувствительное пищеварение'],['picky','Привередливая'],['coat','Кожа и шерсть'],['weight','Контроль веса'],['active','Активная']]};
+const NEEDTXT={sensitive:'чувствительное пищеварение',allergy:'склонность к аллергии',active:'высокая активность',sterile:'стерилизация',picky:'привередливость',coat:'кожа и шерсть',weight:'контроль веса'};
+const SIZES=[['xs','Мини','до 4 кг',26],['s','Малая','4–10 кг',32],['m','Средняя','10–25 кг',38],['l','Крупная','от 25 кг',46]];
+let state={sp:null,age:null,size:null,needs:[],done:false,saved:null,filter:'all'};
+try{const s=JSON.parse(localStorage.getItem('limkorm-demo')||'null');if(s&&s.saved)state.saved=s.saved}catch(e){}
+function persist(){try{localStorage.setItem('limkorm-demo',JSON.stringify({saved:state.saved}))}catch(e){}}
+const $=id=>document.getElementById(id);
+function go(id){const el=$(id);if(!el)return;el.classList.remove('hidden');setTimeout(()=>el.scrollIntoView({behavior:'smooth',block:'start'}),60)}
+function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2300)}
+function openSheet(){$('sheet').classList.add('open')}
+
+
+/* ===== Связь с дневником «Лапки» (общие питомцы на этом телефоне) ===== */
+const DKEY='lapki-limkorm-test';
+function diaryGet(){try{return JSON.parse(localStorage.getItem(DKEY)||'null')}catch(e){return null}}
+function diarySet(D){try{localStorage.setItem(DKEY,JSON.stringify(D))}catch(e){}}
+function blankPet(o){return Object.assign({id:Math.random().toString(36).slice(2,10),name:'',species:'dog',breed:'',sex:'Девочка',birth:'',color:'',chip:'',passport:'',food:'',allergy:'',vet:'',vetPhone:'',notes:'',photo:'',theme:'#a8481f',weights:[],records:[],plans:[],walks:{},needs:[]},o)}
+// демо: если дневник пуст, добавляем двух примерных питомцев
+(function seed(){const D=diaryGet();if(!D||D.demoV!==2){location.replace('./#topicker'+(location.hash?'-'+location.hash.slice(1):''));}})();
+const XS=/той|чихуа|йорк|померан|шпиц|мальтез|папийон|китайск|грифон|ши-тцу|мальтипу/i, LB=/овчар|лабрадор|ретривер|хаски|маламут|ротвейлер|доберман|алабай|кане-корсо|дог|сенбернар|акита|самоед/i;
+function guessSize(p){if(p.size)return p.size;if(XS.test(p.breed||''))return 'xs';if(LB.test(p.breed||''))return 'l';
+  const w=(p.weights||[]).slice().sort((a,b)=>a.date.localeCompare(b.date)).pop();const m=months(p.birth);
+  if(w&&m!==null&&m>=12)return w.kg<4?'xs':w.kg<10?'s':w.kg<25?'m':'l';return 's'}
+function months(b){if(!b)return null;const d=new Date(b),t=new Date();return (t.getFullYear()-d.getFullYear())*12+t.getMonth()-d.getMonth()-(t.getDate()<d.getDate()?1:0)}
+const curPet=()=>{const D=diaryGet();return D&&state.pet?D.pets.find(p=>p.id===state.pet):null};
+function petAv(p){return p.photo?`<img src="${p.photo}" alt="">`:(p.species==='cat'?'🐱':'🐶')}
+function renderWho(){
+  const D=diaryGet();const box=$('whoBox');
+  if(!D||!D.pets||!D.pets.length){box.innerHTML='';return}
+  box.innerHTML=`<div class="step">Ваши питомцы</div><h2>Для кого подбираем?</h2>
+   <div class="who">${D.pets.map(p=>`<button class="${state.pet===p.id?'on':''}" onclick="selectPet('${p.id}')"><span class="av">${petAv(p)}</span>${esc(p.name)}</button>`).join('')}
+   <button class="add ${state.pet===null&&state.sp?'on':''}" onclick="newPetFlow()"><span class="av">＋</span>Другой</button></div>
+   <div class="whohint">Возраст, размер и особенности возьмём из дневника «Лапки» — или ответьте на вопросы ниже.</div>`;
+  $('spTitle').textContent=state.pet?'Вид питомца':'Кто живёт у вас дома?';
+}
+function selectPet(id){const D=diaryGet();const p=D&&D.pets.find(x=>x.id===id);if(!p)return;
+  state.pet=id;state.sp=p.species;const m=months(p.birth);state.months=m;
+  state.age=m===null?'adult':m<12?'young':m>=84?'senior':'adult';
+  state.size=p.species==='dog'?guessSize(p):null;state.needs=(p.needs||[]).slice();state.saved=p.food||null;
+  if(p.birth)$('birth').value=p.birth;
+  document.querySelectorAll('.tot').forEach(e=>e.textContent=p.species==='cat'?3:4);renderWho();renderSpecies();renderAges();if(p.species==='dog'){renderSizes();$('s-size').classList.remove('hidden');$('needsN').textContent='4'}else{$('s-size').classList.add('hidden');$('needsN').textContent='3'}
+  renderNeeds();['s-age','s-needs'].forEach(x=>$(x).classList.remove('hidden'));showResults()}
+function newPetFlow(){state.pet=null;state.sp=null;state.age=null;state.size=null;state.needs=[];state.done=false;state.saved=null;$('birth').value='';
+  ['s-age','s-size','s-needs','s-res'].forEach(x=>$(x).classList.add('hidden'));renderWho();renderSpecies();go('s-species')}
+function syncPet(){const D=diaryGet();if(!D||!state.pet)return;const p=D.pets.find(x=>x.id===state.pet);if(!p)return;
+  if(state.size)p.size=state.size;p.needs=state.needs.slice();diarySet(D)}
+
+function renderSpecies(){
+  $('species').innerHTML=[['dog','🐶','Собака','щенок или взрослая'],['cat','🐱','Кошка','котёнок или взрослая']].map(([k,e,n,s])=>
+    `<button class="tile sp ${state.sp===k?'on':''}" onclick="pickSpecies('${k}')"><div class="fa"><img src="img/${k==='dog'?'pet-mira':'pet-vaska'}.webp" alt=""></div><b>${n}</b></button>`).join('');
+}
+function pickSpecies(k){document.querySelectorAll('.tot').forEach(e=>e.textContent=k==='cat'?3:4);if(state.pet){const p=curPet();if(!p||p.species!==k)state.pet=null}state.sp=k;state.needs=[];state.size=null;state.age=null;state.done=false;
+  ['s-size','s-needs','s-res'].forEach(id=>$(id).classList.add('hidden'));renderSpecies();renderAges();go('s-age')}
+function renderAges(){
+  const d=state.sp==='dog';$('ageTitle').textContent=d?'Сколько лет собаке?':'Сколько лет кошке?';
+  const A=[['young',d?'🍼':'🧶',d?'Щенок':'Котёнок','до 1 года'],['adult',d?'🦮':'😺','Взрослая','от 1 до 7 лет'],['senior','🧓','Старше 7 лет','спокойный возраст']];
+  $('ages').innerHTML=A.map(([k,e,n,s],i)=>`<button class="tile ${state.age===k?'on':''}" ${i===2?'style="grid-column:span 2"':''} onclick="pickAge('${k}')"><span class="num">0${i+1}</span><b>${n}</b><span>${s}</span></button>`).join('');
+}
+function pickAge(k){state.age=k;renderAges();afterAge()}
+function setBirth(v){if(!v)return;const b=new Date(v),t=new Date();const m=(t.getFullYear()-b.getFullYear())*12+t.getMonth()-b.getMonth()-(t.getDate()<b.getDate()?1:0);
+  if(m<0){toast('Дата в будущем?');return}state.age=m<12?'young':m>=84?'senior':'adult';state.months=m;renderAges();
+  toast(m<12?`${m} мес. — ${state.sp==='dog'?'щенок':'котёнок'}`:`${Math.floor(m/12)} г. — ${state.age==='senior'?'старше 7 лет':'взрослая'}`);afterAge()}
+function afterAge(){if(state.sp==='dog'){renderSizes();go('s-size')}else{$('needsN').textContent='3';renderNeeds();go('s-needs')}}
+function renderSizes(){
+  $('sizes').innerHTML=SIZES.map(([k,n,s,px])=>`<button class="tile ${state.size===k?'on':''}" onclick="pickSize('${k}')"><span class="em"><i style="width:${px}px;height:${px}px"></i></span><b>${n}</b><span>${s}</span></button>`).join('');
+}
+function pickSize(k){state.size=k;syncPet();renderSizes();$('needsN').textContent='4';renderNeeds();go('s-needs')}
+function renderNeeds(){
+  $('needs').innerHTML=`<button class="chip ${state.needs.length?'':'on'}" onclick="state.needs=[];syncPet();renderNeeds();if(state.done)renderResults()">Нет особенностей</button>`+
+    NEEDS[state.sp].map(([k,n])=>`<button class="chip ${state.needs.includes(k)?'on':''}" onclick="toggleNeed('${k}')">${n}</button>`).join('');
+}
+function toggleNeed(k){state.needs=state.needs.includes(k)?state.needs.filter(x=>x!==k):[...state.needs,k];syncPet();renderNeeds();if(state.done)renderResults()}
+
+function pick(){
+  const sp=state.sp,needs=state.needs,size=sp==='dog'?(state.size||'s'):'all';let stage=state.age||'adult';let note='';
+  if(stage==='senior'&&sp==='dog'){stage='adult';note='Для собак старше 7 лет отдельных кормов в линейках нет — показаны корма для взрослых. Обсудите рацион с ветеринаром.'}
+  if(state.age==='young'&&sp==='dog'&&size==='l'&&state.months>=12&&state.months<15)stage='young';
+  let list=FEEDS.filter(f=>f.sp===sp&&(f.age===stage||(stage==='senior'&&f.age==='adult'))&&(f.size.includes('all')||f.size.includes(size)));
+  list=list.filter(f=>!f.needs.length||f.needs.some(n=>needs.includes(n)));
+  if(sp==='cat'&&needs.includes('sterile')&&stage!=='young'){const st=list.filter(f=>f.needs.includes('sterile')||f.age==='senior'||f.needs.some(n=>n!=='sterile'&&needs.includes(n)));if(st.length)list=st}
+  const score=f=>f.needs.filter(n=>needs.includes(n)).length*3+(f.size.includes(size)?2:0)-(f.wet?1:0)+(realImg(f)?0.5:0);
+  list=list.map(f=>({...f,score:score(f)})).sort((a,b)=>b.score-a.score);
+  const miss=needs.filter(n=>!list.some(f=>f.needs.includes(n)));
+  if(miss.length)note=(note?note+' ':'')+'Отдельных кормов под «'+miss.map(n=>NEEDTXT[n]).join('», «')+'» для этого возраста и размера в линейках нет — показаны базовые варианты. Посоветуйтесь с ветеринаром.';
+  return {list,note,stage,size};
+}
+function why(f,r){
+  const parts=[];const sp=state.sp;
+  parts.push(r.stage==='young'?(sp==='dog'?'щенок':'котёнок'):state.age==='senior'?'старше 7 лет':'взрослая');
+  if(sp==='dog')parts.push(f.size.includes('all')?'подходит всем размерам':SIZES.find(s=>s[0]===r.size)[1].toLowerCase()+' порода');
+  f.needs.filter(n=>state.needs.includes(n)).forEach(n=>parts.push(NEEDTXT[n]));
+  return parts.join(' · ');
+}
+const label=f=>BRANDS[f.b].n+' · '+f.name+(f.protein?' ('+f.protein+')':'');
+function buyUrl(f){return 'https://www.ozon.ru/search/?text='+encodeURIComponent(BRANDS[f.b].n+' '+(f.sp==='dog'?'корм для собак ':'корм для кошек ')+f.name.replace(/ — .*/,'')+(f.protein?' '+f.protein:''))}
+function showResults(){state.done=true;state.filter='all';renderResults();go('s-res');}
+function renderResults(){
+  const r=pick();const sp=state.sp;
+  const tags=[sp==='dog'?'🐶 Собака':'🐱 Кошка',r.stage==='young'?(sp==='dog'?'🍼 Щенок':'🧶 Котёнок'):state.age==='senior'?'🧓 7+ лет':'Взрослая'];
+  if(sp==='dog')tags.push('📏 '+SIZES.find(s=>s[0]===r.size)[1]);
+  state.needs.forEach(n=>tags.push(NEEDTXT[n]));
+  const cp=curPet();$('resHead').innerHTML=`${cp?`<div class="res-av">${petAv(cp)}</div>`:''}<div class="step" style="color:var(--green)">✓ Готово</div><h2>${cp?esc(cp.name)+': п':'П'}одобрали ${r.list.length} ${plural(r.list.length,'корм','корма','кормов')}</h2><div class="tags">${tags.map(t=>`<span>${t}</span>`).join('')}</div>`;
+  const brands=['all','om','ajo','sir'].filter(b=>b==='all'||r.list.some(f=>f.b===b));
+  if(!brands.includes(state.filter))state.filter='all';
+  $('filters').innerHTML=brands.map(b=>`<button class="${state.filter===b?'on':''}" onclick="state.filter='${b}';renderResults()">${b==='all'?'Все бренды':BRANDS[b].n}</button>`).join('');
+  const list=r.list.filter(f=>state.filter==='all'||f.b===state.filter);
+  const top=r.list[0]&&r.list[0].id;
+  $('feed').innerHTML=(r.note?`<div class="why" style="background:#fff6e3;color:#7a5410;margin-bottom:14px">ℹ️ ${r.note}</div>`:'')+
+   (list.length?list.map((f,i)=>`<article class="card" style="animation-delay:${Math.min(i,6)*60}ms">
+     ${(()=>{f._img=realImg(f);return ''})()}<div class="visual ${f._img?'light':''}" style="background:${f._img?GRADL[f.b]:GRAD[f.b]}"><div class="halo"></div>
+       <span class="tagc">${BRANDS[f.b].cls}</span>${f.id===top?'<span class="best">★ Лучшее совпадение</span>':''}
+       ${f._img?`<img class="real ${f._img.mul?'mul':''}" src="${f._img.src}" alt="${esc(BRANDS[f.b].n+' '+f.name)}" loading="lazy">`:`<div class="pack ${f.wet?'wet':''}" style="background:${PACK[f.b]}"><div class="pb">${BRANDS[f.b].n}</div><div class="pl">${esc(f.name.replace(/ — .*/,''))}</div><div class="pp">${f.wet?'🥫':protEmoji(f.protein)}</div></div>`}
+       ${cp&&cp.photo?`<div class="petside ph"><img src="${cp.photo}" alt=""></div>`:`<div class="petside">${sp==='dog'?'🐶':'🐱'}</div>`}</div>
+     <div class="body"><img class="blogo" src="${LOGO[f.b]}" alt="${BRANDS[f.b].n}">
+       <h3>${esc(f.name)}</h3>
+       <div class="meta"><span>${f.wet?'🥫 Влажный':'🥣 Сухой'}</span>${f.protein?`<span>${protEmoji(f.protein)} ${esc(f.protein)}</span>`:''}<span>${esc(BRANDS[f.b].d.split(',')[0])}</span></div>
+       <div class="why">Подходит: <b>${why(f,r)}</b></div>
+       <div class="acts"><a class="buy" href="${buyUrl(f)}" target="_blank" rel="noopener">Где купить</a><button class="save ${state.saved===label(f)?'on':''}" onclick="saveFood('${f.id}')">${state.saved===label(f)?'✓ Выбран':'♡ Выбрать'}</button></div>
+     </div></article>`).join(''):'<div class="empty">Под эти условия корм не найден — снимите часть особенностей.</div>');
+}
+function saveFood(id){const f=FEEDS.find(x=>x.id===id);state.saved=label(f);persist();
+  // записываем в дневник «Лапки» (тест): первому питомцу того же вида
+  let msg='Корм выбран ♡';try{const D=JSON.parse(localStorage.getItem('lapki-limkorm-test')||'null');if(D&&D.pets){const p=(state.pet&&D.pets.find(x=>x.id===state.pet))||D.pets.find(x=>x.id===D.current&&x.species===f.sp)||D.pets.find(x=>x.species===f.sp);if(p){p.food=label(f);localStorage.setItem('lapki-limkorm-test',JSON.stringify(D));msg='Корм сохранён в дневник для '+p.name+' 🐾'}}}catch(e){}
+  renderResults();toast(msg)}
+function plural(n,a,b,c){n=Math.abs(n)%100;const n1=n%10;if(n>10&&n<20)return c;if(n1>1&&n1<5)return b;if(n1===1)return a;return c}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+document.getElementById('birth').max=new Date().toISOString().slice(0,10);
+state.pet=null;renderWho();renderSpecies();
+{const m=location.hash.match(/^#pet=(\w+)/);if(m)setTimeout(()=>selectPet(m[1]),200);const q=location.hash.match(/^#sp=(dog|cat)/);if(q)setTimeout(()=>{newPetFlow();pickSpecies(q[1])},200)}
+</script>
+<script>const BUILD='202611162234';setTimeout(()=>{try{fetch(location.pathname+'?nc='+Date.now(),{cache:'no-store'}).then(r=>r.text()).then(t=>{const m=t.match(/const BUILD='(\d+)'/);if(m&&m[1]!==BUILD&&!sessionStorage.getItem('bv'+m[1])){sessionStorage.setItem('bv'+m[1],1);location.replace(location.pathname+'?v='+m[1]+location.hash)}}).catch(()=>{})}catch(e){}},1200)</script>
+</body>
+</html>
