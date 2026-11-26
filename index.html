@@ -342,6 +342,61 @@ nav .plus svg{width:24px;height:24px;color:#fff}
 .dy-act{display:flex;gap:8px;margin-top:12px}.dy-act .btn{flex:1;font-size:14px;padding:10px 8px}
 </style>
 <script>function goal(){}</script>
+<style>
+/* --- Прямоугольные блоки: приют (главная) и справочник питомников (профиль) --- */
+.pp{display:grid;grid-template-columns:48px 1fr auto;grid-template-areas:"em tx go" "d d d";column-gap:12px;row-gap:6px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:10px 0;text-decoration:none;color:var(--ink);box-shadow:0 2px 14px rgba(47,77,52,.06)}
+.pp:active{transform:scale(.99)}
+.pp-em{grid-area:em;width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;background:var(--sage2,#ebece1)}
+.pp-tx{grid-area:tx;min-width:0}
+.pp-k{display:block;font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;font-weight:800;color:var(--muted)}
+.pp-tx b{display:block;font-size:15px;line-height:1.25;margin-top:2px}
+.pp-go{grid-area:go;font-size:24px;line-height:1;color:var(--muted);font-weight:600;padding-left:2px}
+.pp-d{grid-area:d;font-size:12.5px;color:var(--muted);line-height:1.4;margin:0}
+.pp-note{font-size:11.5px;line-height:1.35;color:var(--muted);margin:-4px 4px 10px}
+.pp.care .pp-em{background:#eef1e4}
+.pp.shop .pp-em{background:#f4ece0}
+</style>
+<style>
+/* --- Рубрика «Истории» --- */
+.hs-head{display:flex;align-items:baseline;justify-content:space-between;margin:16px 2px 6px}
+.hs-head h3{margin:0;font-size:18px}
+.hs-head span{font-size:12px;color:var(--muted)}
+.hs{display:grid;grid-template-columns:56px 1fr;column-gap:12px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:10px 0;cursor:pointer;box-shadow:0 2px 14px rgba(47,77,52,.06)}
+.hs:active{transform:scale(.99)}
+.hs-em{grid-column:1;grid-row:1;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;background:#f1eee2;overflow:hidden}
+.hs-em img{width:100%;height:100%;object-fit:cover}
+.hs-tx{grid-column:2;grid-row:1;min-width:0}
+.hs-k{display:inline-block;font-size:10px;letter-spacing:.8px;text-transform:uppercase;font-weight:800;color:#6f7d63;background:#eef1e4;border-radius:99px;padding:2px 8px}
+.hs-tx b{display:block;font-size:16px;line-height:1.2;margin-top:5px}
+.hs-teaser{grid-column:1/-1;font-size:13px;color:var(--muted);line-height:1.45;margin:8px 0 0}
+.hs-more{grid-column:1/-1;font-size:13px;font-weight:800;color:var(--green2,#3d6143);margin:6px 0 0}
+</style>
+<style>
+/* --- Прогулка --- */
+.wk-back{display:inline-flex;align-items:center;gap:6px;background:none;border:0;padding:6px 0;font:inherit;font-weight:700;color:var(--muted);cursor:pointer}
+.wk-clock{font-family:Georgia,serif;font-size:52px;line-height:1;letter-spacing:-1px;margin:6px 0 2px}
+.wk-sub{font-size:12.5px;color:var(--muted)}
+.wk-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:14px 0 4px}
+.wk-stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center}
+.wk-stat b{display:block;font-size:19px}
+.wk-stat span{font-size:11px;color:var(--muted)}
+.wk-notes{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.wk-note{background:#fff;border:1px solid var(--line);border-radius:99px;padding:8px 12px;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer}
+.wk-note.on{background:var(--sage2,#ebece1);border-color:var(--green2,#3d6143);color:var(--green2,#3d6143)}
+.wk-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.wk-row:last-child{border-bottom:0}
+.wk-row b{min-width:84px;white-space:nowrap}
+.gm-k{display:inline-block;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;font-weight:800;color:#6f7d63;background:#eef1e4;border-radius:99px;padding:2px 8px}
+.gm-row{display:flex;gap:10px;margin-top:10px}
+.gm-row .btn{flex:1;padding:11px 10px;font-size:14px}
+</style>
+<style>
+/* --- Карта маршрута --- */
+.wk-map{height:230px;border-radius:16px;overflow:hidden;background:#e9ede0;border:1px solid var(--line)}
+.wk-map svg{display:block;width:100%;height:100%}
+.wk-map-note{font-size:11.5px;color:var(--muted);margin-top:8px}
+.wk-map a{color:var(--green2,#3d6143);font-weight:700;text-decoration:none}
+</style>
 </head>
 <body>
 <div class="lktop"><div class="brand"><svg viewBox="0 0 32 32" fill="currentColor"><ellipse cx="7" cy="13.5" rx="3.2" ry="4"/><ellipse cx="12.5" cy="7.5" rx="3.3" ry="4.3"/><ellipse cx="19.5" cy="7.5" rx="3.3" ry="4.3"/><ellipse cx="25" cy="13.5" rx="3.2" ry="4"/><path d="M16 14c-4 0-8.5 5.6-8.5 9.2 0 2.6 2 3.8 4.3 3.8 1.8 0 2.6-.9 4.2-.9s2.4.9 4.2.9c2.3 0 4.3-1.2 4.3-3.8C24.5 19.6 20 14 16 14z"/></svg>ЛАПКИ<small>× LIMKORM</small></div><button class="me" onclick="tab='pet';render();scrollTo(0,0)" aria-label="Питомец"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"/></svg></button></div>
@@ -512,7 +567,7 @@ const ANDROID=/Android/i.test(navigator.userAgent);
 /* ============ ДАННЫЕ ============ */
 let S=load();
 /* рост в холке появился позже веса — добираем поле у старых данных */
-(S.pets||[]).forEach(p=>{p.weights=p.weights||[];p.heights=p.heights||[]});
+(S.pets||[]).forEach(p=>{p.weights=p.weights||[];p.heights=p.heights||[]});(S.pets||[]).forEach(p=>{p.walkLog=p.walkLog||[];p.groomVisits=p.groomVisits||[];p.groomer=p.groomer||{}}) 
 function load(){try{const s=localStorage.getItem(KEY);if(s)return JSON.parse(s)}catch(e){}return{pets:[],current:null,remindTime:'10:00'}}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast('Мало места — уменьшите фото')}}
 const uid=()=>Math.random().toString(36).slice(2,10);
@@ -567,7 +622,7 @@ function render(){
   applyTheme();updateIcon();
   document.getElementById('pets').innerHTML=S.pets.map(p=>`<button class="pet ${p.id===P().id?'on':''}" onclick="switchPet('${p.id}')"><span class="mini">${ICO2[p.species]||ICO2.dog}</span>${esc(p.name)}</button>`).join('')+`<button class="addpet" onclick="openPetForm()">＋</button>`;
   document.querySelectorAll('nav button[data-tab]').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));document.body.classList.toggle('t-home',tab==='home');
-  document.getElementById('view').innerHTML={home:homeV,cal:calV,log:logV,pet:petV,food:foodV,news:newsV}[tab]();
+  document.getElementById('view').innerHTML={home:homeV,cal:calV,log:logV,pet:petV,food:foodV,news:newsV,walk:walkV,groom:groomV}[tab]();;if(tab==='walk')setTimeout(wkDrawMap,60);
 }
 function switchPet(id){S.current=id;save();render();window.scrollTo(0,0)}
 
@@ -606,9 +661,10 @@ function homeV(){
   ${dueCard(up)}${dayCard()}
   ${wFood(p)}
   ${wNews(p)}
+  ${storiesBlock()}
   ${installBanner()}
   <div class="wgrid">${wNext(p,up)}${wHuman(p)}${wProtect(p)}${wWalks(p)}${wWeight(p)}${wHeight(p)}${wBday(p)}${wTip(p)}</div>
-  <div class="moon"><div class="stars"></div><div class="orb"></div><span class="soon">Скоро</span><h3>Лунный календарь</h3><p>Гороскоп по возрасту, полу и породе, фазы Луны и совет на каждый день.</p></div>
+  ${shelterBlock()}<div class="moon"><div class="stars"></div><div class="orb"></div><span class="soon">Скоро</span><h3>Лунный календарь</h3><p>Гороскоп по возрасту, полу и породе, фазы Луны и совет на каждый день.</p></div>
   <div class="card"><h3>Ближайшие 30 дней</h3>${soon.length?soon.map(upRow).join(''):`<div class="empty">Ничего не запланировано.<br>Отметьте прививку или таблетку с повтором — следующая дата посчитается сама.</div>`}</div>`;
 }
 function ring(pct,col,inner){const r=42,c=2*Math.PI*r;pct=Math.max(0,Math.min(1,pct));
@@ -639,10 +695,17 @@ function wProtect(p){
   return `<div class="w wide"><div style="display:flex;justify-content:space-between;align-items:baseline"><div class="lbl">Защита</div><span class="sm" style="margin:0">статус на сегодня</span></div><div style="margin-top:4px">${items}</div></div>`;
 }
 function wWalks(p){
-  const t=today();const n=p.walks[t]||0;let streak=0,d=t;if(!n)d=addDays(t,-1);while((p.walks[d]||0)>0){streak++;d=addDays(d,-1)}
-  const goal=3;const lbl=p.species==='cat'?'Игры сегодня':'Прогулки';
-  return `<div class="w"><div class="lbl">${lbl}</div><div class="big">${n}<small>из ${goal}</small></div><div class="steps">${Array.from({length:goal},(_,i)=>`<button class="${i<n?'on':''}" onclick="walk(${i+1})">${i+1}</button>`).join('')}</div>
-    <div class="sm" style="margin-top:auto">${streak>1?`${streak} ${plural(streak,'день','дня','дней')} подряд`:n>=goal?'Норма выполнена':'Отметьте после '+(p.species==='cat'?'игры':'прогулки')}</div></div>`;
+  const t=today();const ws=(p.walkLog||[]).filter(w=>w.date===t);
+  const mins=ws.reduce((s,w)=>s+w.mins,0),km=ws.reduce((s,w)=>s+(w.km||0),0);
+  const lbl=p.species==='cat'?'Игры сегодня':'Прогулки сегодня';
+  return `<div class="w wtap" onclick="tab='walk';render()"><div class="lbl">${lbl}</div><div class="big">${ws.length}<small>из 3</small></div>
+    <div class="sm">${ws.length?`${mins} мин · ${fmtKm(km)}`:'Нажмите, чтобы начать'}</div>
+    <div style="margin-top:auto;font-size:22px;text-align:right">🦮</div></div>`;
+}
+function groomCard(){const p=P();const nx=groomNext(p);const n=(p.groomVisits||[]).length;
+  return `<div class="card" onclick="tab='groom';render()" style="cursor:pointer">
+    <div style="display:flex;justify-content:space-between;align-items:center"><h3 style="font-size:16px;margin:0">Грумер</h3><span class="sm">${n?'визитов: '+n:'ещё не было'}</span></div>
+    <p class="sm" style="margin-top:6px">${nx?'Следующий визит около '+fmt(nx)+' ›':'Добавьте контакт и отметьте визит — посчитаем интервал ›'}</p></div>`;
 }
 function walk(k){const p=P(),t=today();const cur=p.walks[t]||0;p.walks[t]=(k===cur?k-1:k);
   const keep=Object.keys(p.walks).sort().slice(-120);p.walks=Object.fromEntries(keep.map(x=>[x,p.walks[x]]));save();render();if(p.walks[t]>cur)voice(1)}
@@ -755,6 +818,7 @@ function petV(){const p=P();const kv=(k,v)=>v?`<div class="kv"><span>${k}</span>
   ${showCard()}
   ${weightCard()}
   ${heightCard()}
+  ${breedersBlock()}
   <div class="card"><h3>Иконка на экране «Домой»</h3><p class="note">При установке на иконке будет фото и кличка питомца, который сейчас выбран (название можно поправить в окне «На экран Домой»). Выберите нужного питомца, затем в Safari нажмите «Поделиться» → «На экран Домой». На Android иконка всегда «Лапки».</p></div>
   <div class="card"><h3>Напоминания</h3><p class="note">Приложение работает без интернета, но присылать уведомления само не может. Ближайшие дела выгружаются в календарь телефона — он напомнит за день и в день процедуры.</p>
     <label>Время напоминания</label><input type="time" value="${S.remindTime}" onchange="S.remindTime=this.value;save()">
@@ -858,6 +922,238 @@ function wFood(p){
     <div class="fx-t ${d?'':'on'}" onclick="goPicker(${d?"'cat'":''})"><div class="fx-art"><img src="img/pet-vaska.webp" alt=""></div><b>Кошка</b></div></div>
     <button class="cta" onclick="goPicker()">Продолжить ${ICO2.arr}</button>
     ${p.food?`<div class="fx-now">Сейчас ${esc(p.name)} ест: <b>${esc(p.food)}</b></div>`:''}<div class="lkmark">Корма Одно Мясо · AJO · SIRIUS</div></section>`;
+}
+/* --- Приют (главная) и справочник питомников (профиль) --- */
+/* Адрес вписывается в url; пока пусто — блок показывает подсказку вместо перехода. */
+const SHELTER={k:'shelter',cls:'care',e:'🐶',tag:'Краснодар · приют',title:'«Краснодог»: 527 животных ищут дом',
+  text:'Приют для пострадавших животных: собаки и кошки, которых можно забрать домой',url:'https://krasnodog.ru/zhivotnyie/',who:'приют'};
+const BREEDERS={k:'breeders',cls:'shop',e:'🐱',tag:'Справочник',title:'Проверенные питомники',
+  text:'Документы, здоровье родителей, отзывы. Публикуем бесплатно и на равных',url:'',who:'питомники'};
+function partnerGo(k){try{goal('partner_'+k)}catch(e){}}
+function partnerRow(x){
+  const inner=`<span class="pp-em">${x.e}</span><span class="pp-tx"><span class="pp-k">${esc(x.tag)}</span><b>${esc(x.title)}</b></span><span class="pp-go">›</span><span class="pp-d">${esc(x.text)}</span>`;
+  if(!x.url)return `<div class="pp ${x.cls}" onclick="toast('Ссылку добавим, когда согласуем ${x.who}')">${inner}</div>`;
+  return `<a class="pp ${x.cls}" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" onclick="partnerGo('${x.k}')">${inner}</a>`;
+}
+function shelterBlock(){
+  return partnerRow(SHELTER)+'<p class="pp-note">Краснодар, ул. Куйбышева 2 · +7 988 505-2-505 · работает с 2003 года, 12 000 животных уже дома.</p>';}
+function breedersBlock(){
+  return partnerRow(BREEDERS)+'<p class="pp-note">Места в справочнике не продаются, приоритета нет: все питомники в одинаковых условиях.</p>';}
+
+/* --- Рубрика «Истории»: хозяин и питомец --- */
+/* Тексты-заготовки: меняются здесь, вёрстку трогать не нужно. */
+const STORIES=[
+ {id:'igor',who:'Игорь',pet:'Шарик',e:'🐕',tag:'из приюта',
+  teaser:'Взял взрослого пса из приюта — и оказалось, что он умеет улыбаться.',
+  text:'Шарик попал в приют в три года: хозяева уехали, пёс остался.\n\nИгорь приехал «просто посмотреть» и уехал с ним. Первый месяц Шарик спал у двери, а потом переехал к кровати.\n\nСейчас они гуляют по утрам в парке, и Игорь говорит, что это лучшая часть дня.'},
+ {id:'bagira',who:'Марина',pet:'Багира',e:'🐈',tag:'из питомника',
+  teaser:'Хотела кошку «просто так», а получила характер, расписание кормлений и выставку.',
+  text:'Багира родилась в питомнике, где Марина сначала просто выбирала котёнка.\n\nЧерез год они уже ездят на выставки: Багира получает оценки, Марина — опыт. Дома всё по-другому: кошка спит на подушке и считает, что диван её.'}
+];
+function storyCard(s){
+  return `<div class="hs" onclick="openStory('${s.id}')"><span class="hs-em">${s.e}</span>
+    <span class="hs-tx"><span class="hs-k">${esc(s.tag)}</span><b>${esc(s.who)} и ${esc(s.pet)}</b></span>
+    <span class="hs-teaser">${esc(s.teaser)}</span><span class="hs-more">Подробнее →</span></div>`;
+}
+function storiesBlock(){
+  return `<div class="hs-head"><h3>Истории</h3><span>хозяева и питомцы</span></div>${STORIES.map(storyCard).join('')}`;
+}
+function openStory(id){
+  const s=STORIES.find(x=>x.id===id);if(!s)return;
+  const body=s.text.split('\n\n').map(t=>`<p style="font-size:15px;line-height:1.55;margin:10px 0">${esc(t)}</p>`).join('');
+  sheet(`<h3>${esc(s.who)} и ${esc(s.pet)}</h3><p class="note" style="margin:-6px 0 4px">${esc(s.tag)}</p>${body}
+    <div class="actions"><button class="btn" onclick="closeSheet()">Закрыть</button></div>`);
+}
+
+
+/* --- Прогулка с трекером --- */
+let WK={run:false,t0:0,sec:0,km:0,lat:null,lon:null,watch:null,notes:[],place:'',timer:null,route:[]};
+const WNOTES=[['sniff','👃 подбирал с земли'],['eat','🍽 съел что-то на улице'],['pull','🦮 тянул поводок'],['fear','😨 испугался'],['friend','🐾 встретили друзей'],['water','💧 пил воду']];
+function walkMins(sec){return Math.max(1,Math.round(sec/60))}
+function todayWalks(){const t=today();return (P().walkLog||[]).filter(w=>w.date===t)}
+function fmtKm(km){return (Math.round(km*100)/100).toFixed(2).replace('.',',')+' км'}
+function haversine(a,b,c,d){const R=6371,r=Math.PI/180;const dLa=(c-a)*r,dLo=(d-b)*r;
+  const h=Math.sin(dLa/2)**2+Math.cos(a*r)*Math.cos(c*r)*Math.sin(dLo/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
+function walkV(){
+  const ws=todayWalks();const mins=ws.reduce((s,w)=>s+w.mins,0),km=ws.reduce((s,w)=>s+(w.km||0),0);
+  return `<button class="wk-back" onclick="tab='home';render()">‹ На главную</button>
+  <h2 style="font-size:23px;margin:2px 0 0">Погулять</h2>
+  <p class="wk-sub">Нажмите «Старт» — приложение засечёт время и, если разрешите геолокацию, маршрут.</p>
+  <div class="card" style="text-align:center;padding:20px 16px">
+    <div class="wk-clock" id="wk-clock">00:00</div>
+    <div class="wk-sub" id="wk-geo">${WK.run?'маршрут считается':'геолокация выключена, пока не начали'}</div>
+    <div class="wk-stats">
+      <div class="wk-stat"><b id="wk-km">${fmtKm(WK.km)}</b><span>расстояние</span></div>
+      <div class="wk-stat"><b id="wk-pace">—</b><span>темп</span></div>
+      <div class="wk-stat"><b>${ws.length}</b><span>прогулок сегодня</span></div>
+    </div>
+    <button class="btn" id="wk-btn" onclick="walkToggle()" style="margin-top:6px">${WK.run?'Стоп и сохранить':'Старт'}</button>
+    ${ws.length?`<p class="wk-sub" style="margin-top:10px">Сегодня: ${ws.length} раз · ${mins} мин · ${fmtKm(km)}</p>`:''}
+  </div>
+  <div class="card"><h3 style="font-size:16px">Что было на прогулке</h3>
+    <div class="wk-notes">${WNOTES.map(([k,l])=>`<button class="wk-note ${WK.notes.includes(k)?'on':''}" onclick="walkNote('${k}')">${l}</button>`).join('')}</div>
+    <label style="margin-top:14px">Где гуляли</label>
+    <input id="wk-place" value="${esc(WK.place)}" placeholder="парк, двор, поле" oninput="WK.place=this.value">
+  </div>
+  <div class="card"><h3 style="font-size:16px">Маршрут</h3>
+    <div class="wk-map" id="wk-map"></div>
+    <p class="wk-map-note">Карта — OpenStreetMap. Без интернета показываем схему маршрута.</p></div>
+  <div class="card"><h3 style="font-size:16px">Последние прогулки</h3>
+    ${(P().walkLog||[]).slice(-4).reverse().map(w=>`<div class="wk-row"><b>${fmt(w.date)}</b><span>${w.mins} мин · ${fmtKm(w.km||0)}${w.place?' · '+esc(w.place):''}</span></div>`).join('')||'<p class="wk-sub">Пока пусто — первая прогулка впереди.</p>'}
+  </div>`;
+}
+function walkTick(){
+  const c=document.getElementById('wk-clock');if(!c)return;
+  const s=WK.sec;c.textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+  const p=document.getElementById('wk-pace');
+  if(p&&WK.km>0&&s>60)p.textContent=String(Math.round(s/60/WK.km))+' мин/км';
+}
+function walkNote(k){const i=WK.notes.indexOf(k);i<0?WK.notes.push(k):WK.notes.splice(i,1);render()}
+function walkToggle(){
+  if(!WK.run){
+    WK.run=true;WK.t0=Date.now();WK.sec=0;WK.km=0;WK.notes=[];WK.place='';WK.lat=null;WK.lon=null;WK.route=[];
+    WK.timer=setInterval(()=>{WK.sec=Math.round((Date.now()-WK.t0)/1000);walkTick()},1000);
+    if(navigator.geolocation){try{WK.watch=navigator.geolocation.watchPosition(p=>{
+      if(WK.lat!==null&&p.coords){const d=haversine(WK.lat,WK.lon,p.coords.latitude,p.coords.longitude);if(d>0.005)WK.km+=d}
+      WK.lat=p.coords.latitude;WK.lon=p.coords.longitude;
+      const rt=WK.route;const np=[Math.round(p.coords.latitude*1e5)/1e5,Math.round(p.coords.longitude*1e5)/1e5];
+      if(!rt.length||haversine(rt[rt.length-1][0],rt[rt.length-1][1],np[0],np[1])>0.008)rt.push(np);
+      if(rt.length>800)rt.shift();
+      const el=document.getElementById('wk-km');if(el)el.textContent=fmtKm(WK.km);
+    },()=>{const g=document.getElementById('wk-geo');if(g)g.textContent='геолокация недоступна — маршрут не считается'},{enableHighAccuracy:true,maximumAge:5000})}catch(e){}}
+    render();
+  } else {
+    WK.run=false;clearInterval(WK.timer);WK.timer=null;
+    if(WK.watch!==null&&navigator.geolocation){navigator.geolocation.clearWatch(WK.watch);WK.watch=null}
+    const p=P();p.walkLog=p.walkLog||[];
+    p.walkLog.push({id:uid(),date:today(),mins:walkMins(WK.sec),km:Math.round(WK.km*100)/100,place:WK.place.trim(),notes:WK.notes.slice(),route:WK.route.slice()});
+    p.walks=p.walks||{};const n=p.walks[today()]||0;p.walks[today()]=Math.min(3,n+1);
+    save();WK.km=0;WK.sec=0;render();toast('Прогулка сохранена');
+  }
+}
+
+/* --- Грумер: визиты, контакт, как найти --- */
+const GROOM_WHAT=[['стрижка','✂️ стрижка'],['claws','🐾 когти'],['bath','🛁 купание'],['ears','👂 уши']];
+function groomAvg(p){const v=[...(p.groomVisits||[])].sort((a,b)=>a.date.localeCompare(b.date));if(v.length<2)return null;
+  let s=0;for(let i=1;i<v.length;i++)s+=diff(v[i-1].date,v[i].date);return Math.round(s/(v.length-1))}
+function groomNext(p){const a=groomAvg(p);const v=[...(p.groomVisits||[])].sort((a,b)=>a.date.localeCompare(b.date));if(!a||!v.length)return null;
+  return addDays(v[v.length-1].date,a)}
+function groomV(){
+  const p=P();const g=p.groomer||{};const v=[...(p.groomVisits||[])].sort((a,b)=>b.date.localeCompare(a.date));const a=groomAvg(p);const nx=groomNext(p);
+  return `<button class="wk-back" onclick="tab='pet';render()">‹ В профиль</button>
+  <h2 style="font-size:23px;margin:2px 0 10px">Грумер</h2>
+  <div class="card">
+    <span class="gm-k">Мой грумер</span>
+    ${g.name||g.phone||g.url?`<h3 style="font-size:17px;margin:8px 0 2px">${esc(g.name||'Без имени')}</h3>
+      <p class="wk-sub">${esc([g.salon,g.city].filter(Boolean).join(' · '))}</p>
+      <div class="gm-row">
+        ${g.phone?`<a class="btn" href="tel:${esc(g.phone)}" style="text-decoration:none;text-align:center">Позвонить</a>`:''}
+        ${g.url?`<a class="btn sec" href="${esc(g.url)}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;text-align:center">Записаться</a>`:''}
+      </div>`:'<p class="wk-sub" style="margin-top:8px">Добавьте контакт — и в визитах появятся кнопки «Позвонить» и «Записаться».</p>'}
+    <button class="btn ghost" style="margin-top:10px" onclick="openGroomerForm()">${g.name?'Изменить контакт':'Добавить контакт'}</button>
+  </div>
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center"><h3 style="font-size:16px;margin:0">История посещений</h3>
+      <button class="btn small sec" style="width:auto" onclick="openGroomVisit()">＋ Визит</button></div>
+    ${a?`<p class="wk-sub" style="margin-top:6px">В среднем раз в ${a} ${plural(a,'день','дня','дней')}${nx?` · следующий около ${fmt(nx)}`:''}</p>`:''}
+    ${v.length?v.map(x=>`<div class="wk-row" onclick="delGroomVisit('${x.id}')"><b>${fmt(x.date)}</b><span>${(x.what||[]).map(k=>GROOM_WHAT.find(w=>w[0]===k)?.[1]||k).join(', ')||'визит'}${x.note?' · '+esc(x.note):''}</span></div>`).join(''):'<p class="wk-sub" style="margin-top:8px">Пока пусто. Первый визит — и появится история с интервалом.</p>'}
+  </div>
+  <div class="card">
+    <span class="gm-k">Как найти грумера</span>
+    <h3 style="font-size:17px;margin:8px 0 4px">На что смотреть</h3>
+    <p class="wk-sub">1. Учился ли мастер и где — спросите про обучение и опыт с вашей породой.</p>
+    <p class="wk-sub">2. Как обращается с собакой: не тащат ли на стол, дают ли привыкнуть.</p>
+    <p class="wk-sub">3. Чем стрижёт и как сушит — от этого зависит шерсть.</p>
+    <p class="wk-sub">4. Отзывы и фото работ, а не только цена.</p>
+    <p class="wk-sub" style="margin-top:8px">Список проверенных грумеров собираем вместе с Ассоциацией грумеров России — он появится в обновлении.</p>
+    <label style="margin-top:12px">Найти в городе</label>
+    <div class="gm-row">
+      <a class="btn sec" href="https://2gis.ru/krasnodar/search/%D0%B3%D1%80%D1%83%D0%BC%D0%B5%D1%80%D1%8B" target="_blank" rel="noopener noreferrer" style="text-decoration:none;text-align:center">Краснодар</a>
+      <a class="btn sec" href="https://2gis.ru/rostov-na-donu/search/%D0%B3%D1%80%D1%83%D0%BC%D0%B5%D1%80%D1%8B" target="_blank" rel="noopener noreferrer" style="text-decoration:none;text-align:center">Ростов-на-Дону</a>
+    </div>
+    <p class="wk-sub" style="margin-top:6px">Откроется поиск грумеров в 2ГИС — с отзывами и телефонами.</p>
+    <button class="btn sec" style="margin-top:10px" onclick="openGroomerForm()">Добавить своего грумера</button>
+  </div>`;
+}
+function openGroomerForm(){
+  const g=P().groomer||{};
+  sheet(`<h3>Контакт грумера</h3>
+    <label>Имя</label><input id="g-name" value="${esc(g.name||'')}" placeholder="Как зовут мастера">
+    <label>Салон</label><input id="g-salon" value="${esc(g.salon||'')}" placeholder="Название салона">
+    <label>Телефон</label><input id="g-phone" type="tel" value="${esc(g.phone||'')}" placeholder="+7 …">
+    <label>Ссылка для записи</label><input id="g-url" value="${esc(g.url||'')}" placeholder="сайт или мессенджер">
+    <div class="actions"><button class="btn" onclick="saveGroomer()">Сохранить</button></div>`);
+}
+function saveGroomer(){
+  const p=P();p.groomer={name:document.getElementById('g-name').value.trim(),salon:document.getElementById('g-salon').value.trim(),
+    phone:document.getElementById('g-phone').value.trim(),url:document.getElementById('g-url').value.trim()};
+  save();closeSheet();render();toast('Контакт сохранён');
+}
+function openGroomVisit(){
+  sheet(`<h3>Визит к грумеру</h3>
+    <div class="two"><div><label>Дата (можно прошлую)</label><input type="date" id="gv-date" value="${today()}" max="${today()}"></div>
+    <div><label>Мастер</label><input id="gv-master" value="${esc(P().groomer?.name||'')}" placeholder="имя"></div></div>
+    <label>Что делали</label><div class="wk-notes">${GROOM_WHAT.map(([k,l])=>`<button class="wk-note" data-k="${k}" onclick="this.classList.toggle('on')">${l}</button>`).join('')}</div>
+    <label>Заметка</label><input id="gv-note" placeholder="например: боится фена">
+    <div class="actions"><button class="btn" onclick="saveGroomVisit()">Сохранить</button></div>`);
+}
+function saveGroomVisit(){
+  const d=document.getElementById('gv-date').value;if(!d){toast('Укажите дату');return}
+  const what=[...document.querySelectorAll('.wk-note.on')].map(b=>b.dataset.k).filter(Boolean);
+  const p=P();p.groomVisits=p.groomVisits||[];
+  p.groomVisits.push({id:uid(),date:d,what,master:document.getElementById('gv-master').value.trim(),note:document.getElementById('gv-note').value.trim()});
+  save();closeSheet();render();toast('Визит записан');
+}
+function delGroomVisit(id){if(!confirm('Удалить визит?'))return;const p=P();p.groomVisits=(p.groomVisits||[]).filter(v=>v.id!==id);save();render()}
+
+
+/* --- Маршрут на карте OpenStreetMap --- */
+function wkLastRoute(){const l=(P().walkLog||[]).filter(w=>w.route&&w.route.length>1);return l.length?l[l.length-1]:null}
+function wkSvg(route){
+  const pts=route.map(p=>({x:p[0],y:p[1]}));
+  const xs=pts.map(p=>p.x),ys=pts.map(p=>p.y);
+  const minx=Math.min(...xs),maxx=Math.max(...xs),miny=Math.min(...ys),maxy=Math.max(...ys);
+  const dx=(maxx-minx)||1e-6,dy=(maxy-miny)||1e-6,pad=12,WW=320,HH=200;
+  const kx=(WW-2*pad)/dx,ky=(HH-2*pad)/dy,k=Math.min(kx,ky);
+  const X=v=>pad+(v-minx)*k+(WW-2*pad-dx*k)/2, Y=v=>HH-pad-(v-miny)*k-(HH-2*pad-dy*k)/2;
+  const d=route.map((p,i)=>(i?'L':'M')+X(p[0]).toFixed(1)+' '+Y(p[1]).toFixed(1)).join(' ');
+  const a=route[0],b=route[route.length-1];
+  return `<svg viewBox="0 0 ${WW} ${HH}" preserveAspectRatio="xMidYMid meet"><rect width="${WW}" height="${HH}" fill="#e9ede0"/>
+    <path d="${d}" fill="none" stroke="#2f4d34" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>
+    <circle cx="${X(a[0]).toFixed(1)}" cy="${Y(a[1]).toFixed(1)}" r="5" fill="#2f4d34"/>
+    <circle cx="${X(b[0]).toFixed(1)}" cy="${Y(b[1]).toFixed(1)}" r="5" fill="#c97a5a"/>
+  </svg>`;
+}
+let WKL=null,WKLloading=false;
+function wkLoadLeaflet(cb){
+  if(window.L)return cb(true);
+  if(WKLloading)return;
+  WKLloading=true;
+  const css=document.createElement('link');css.rel='stylesheet';css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';document.head.appendChild(css);
+  const s=document.createElement('script');s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+  s.onload=()=>cb(!!window.L);s.onerror=()=>cb(false);document.head.appendChild(s);
+  setTimeout(()=>{if(!window.L)cb(false)},4000);
+}
+function wkDrawMap(){
+  const box=document.getElementById('wk-map');if(!box)return;
+  const w=wkLastRoute();
+  if(!w){box.innerHTML='<div style="padding:16px;font-size:12.5px;color:#717a6c">Маршрут появится после прогулки с включённой геолокацией.</div>';return;}
+  const route=w.route;
+  box.innerHTML=wkSvg(route); // сразу схема, карта поверх — если загрузится
+  wkLoadLeaflet(ok=>{
+    const el=document.getElementById('wk-map');if(!el||!document.body.contains(el))return;
+    if(!ok){return;} // остаётся схема
+    try{
+      el.innerHTML='';
+      const map=L.map(el,{zoomControl:false,attributionControl:true});
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(map);
+      const line=route.map(p=>[p[0],p[1]]);
+      L.polyline(line,{color:'#2f4d34',weight:4,opacity:.9}).addTo(map);
+      L.circleMarker(line[0],{radius:6,color:'#2f4d34',fillColor:'#2f4d34',fillOpacity:1}).addTo(map);
+      L.circleMarker(line[line.length-1],{radius:6,color:'#c97a5a',fillColor:'#c97a5a',fillOpacity:1}).addTo(map);
+      map.fitBounds(L.latLngBounds(line),{padding:[16,16]});
+    }catch(e){}
+  });
 }
 function foodV(){
   const p=P();const r=pickFeeds(p);const needs=p.needs||[];
